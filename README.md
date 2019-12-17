@@ -1,60 +1,137 @@
-<p align="center">
-    <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
-    </a>
-    <h1 align="center">Yii 2 Advanced Project Template</h1>
-    <br>
-</p>
+# HOW TO, yii2 application 
 
-Yii 2 Advanced Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-developing complex Web applications with multiple tiers.
-
-The template includes three tiers: front end, back end, and console, each of which
-is a separate Yii application.
-
-The template is designed to work in a team development environment. It supports
-deploying the application in different environments.
-
-Documentation is at [docs/guide/README.md](docs/guide/README.md).
-
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Build Status](https://travis-ci.org/yiisoft/yii2-app-advanced.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-app-advanced)
-
-DIRECTORY STRUCTURE
--------------------
+> For authorization in BACKEND application:
+>
+>   login: efinYuri
+>
+>   password: qwqwqw
 
 ```
-common
-    config/              contains shared configurations
-    mail/                contains view files for e-mails
-    models/              contains model classes used in both backend and frontend
-    tests/               contains tests for common classes    
-console
-    config/              contains console configurations
-    controllers/         contains console controllers (commands)
-    migrations/          contains database migrations
-    models/              contains console-specific model classes
-    runtime/             contains files generated during runtime
-backend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains backend configurations
-    controllers/         contains Web controller classes
-    models/              contains backend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for backend application    
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-frontend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains frontend configurations
-    controllers/         contains Web controller classes
-    models/              contains frontend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for frontend application
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-    widgets/             contains frontend widgets
-vendor/                  contains dependent 3rd-party packages
-environments/            contains environment-based overrides
+git clone https://github.com/yuriEfin/rtg.git
 ```
+```
+php yii migrate 
+```
+
+### config nginx for frontend application
+```
+server {
+        listen 80;
+        charset utf-8;
+        set $host_path "/var/www/job_test/yii2/apple.work/frontend/web";
+        server_name apple.work;
+       
+        client_max_body_size 512m;
+        root   $host_path;
+        set $yii_bootstrap "index.php";
+#       access_log /var/log/nginx/apple.access.log;
+        error_log  /var/log/nginx/apple.error.log;
+	
+	proxy_buffering off;
+	proxy_buffers 15 1024k;  
+        proxy_buffer_size 1024k;
+	proxy_temp_path /var/www/job_test/yii2/apple.work/frontend/runtime 1 2;
+
+
+        location / {
+                index  index.html $yii_bootstrap;
+                try_files $uri $uri/ /$yii_bootstrap?$args;
+        }
+        location ~ \.(webp|js|css|png|jpg|gif|swf|ico|pdf|mov|fla|zip|rar|jpeg)$ {
+                try_files $uri =404;
+        }
+	location ~ \.php {
+                fastcgi_split_path_info  ^(.+\.php)(.*)$;
+                root $host_path;
+
+                # позволяем yii перехватывать запросы к несуществующим PHP-файлам
+                set $fsn $yii_bootstrap;
+                if (-f $document_root$fastcgi_script_name){
+                    set $fsn $fastcgi_script_name;
+                }
+                proxy_connect_timeout 300;
+                proxy_send_timeout 300;
+                proxy_read_timeout 300;
+                fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+                fastcgi_param DOCUMENT_ROOT $realpath_root;
+                fastcgi_param  PHP_VALUE  'xdebug.remote_port=9199';
+                
+		include fastcgi_params;
+                fastcgi_param  SCRIPT_FILENAME  $document_root$fsn;
+
+                # PATH_INFO и PATH_TRANSLATED могут быть опущены, но стандарт RFC 3875 определяет для CGI
+                fastcgi_param  PATH_INFO        $fastcgi_path_info;
+                fastcgi_param  PATH_TRANSLATED  $document_root$fsn;
+        }
+
+        # не позволять nginx отдавать файлы, начинающиеся с точки (.htaccess, .svn, .git и прочие)
+        location ~ /\. {
+                deny all;
+                access_log off;
+                log_not_found off;
+        }
+
+}
+```
+### config nginx for backend application
+```
+
+server {
+        listen 80;
+        charset utf-8;
+        set $host_path "/var/www/job_test/yii2/apple.work/backend/web";
+        server_name back.apple.work;
+       
+        client_max_body_size 512m;
+        root   $host_path;
+        set $yii_bootstrap "index.php";
+#       access_log /var/log/nginx/apple.access.log;
+        error_log  /var/log/nginx/apple.apple.error.log;
+	
+	proxy_buffering off;
+	proxy_buffers 15 1024k;  
+        proxy_buffer_size 1024k;
+	proxy_temp_path /var/www/job_test/yii2/apple.work/backend/runtime 1 2;
+
+
+        location / {
+                index  index.html $yii_bootstrap;
+                try_files $uri $uri/ /$yii_bootstrap?$args;
+        }
+        location ~ \.(webp|js|css|png|jpg|gif|swf|ico|pdf|mov|fla|zip|rar|jpeg)$ {
+                try_files $uri =404;
+        }
+	location ~ \.php {
+                fastcgi_split_path_info  ^(.+\.php)(.*)$;
+                root $host_path;
+
+                # позволяем yii перехватывать запросы к несуществующим PHP-файлам
+                set $fsn $yii_bootstrap;
+                if (-f $document_root$fastcgi_script_name){
+                    set $fsn $fastcgi_script_name;
+                }
+                proxy_connect_timeout 300;
+                proxy_send_timeout 300;
+                proxy_read_timeout 300;
+                fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+                fastcgi_param DOCUMENT_ROOT $realpath_root;
+                fastcgi_param  PHP_VALUE  'xdebug.remote_port=9035';
+
+                include fastcgi_params;
+                fastcgi_param  SCRIPT_FILENAME  $document_root$fsn;
+
+                # PATH_INFO и PATH_TRANSLATED могут быть опущены, но стандарт RFC 3875 определяет для CGI
+                fastcgi_param  PATH_INFO        $fastcgi_path_info;
+                fastcgi_param  PATH_TRANSLATED  $document_root$fsn;
+        }
+
+        # не позволять nginx отдавать файлы, начинающиеся с точки (.htaccess, .svn, .git и прочие)
+        location ~ /\. {
+                deny all;
+                access_log off;
+                log_not_found off;
+        }
+
+}
+```
+

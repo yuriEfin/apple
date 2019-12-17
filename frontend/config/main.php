@@ -1,4 +1,5 @@
 <?php
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -33,17 +34,19 @@ return [
                 ],
             ],
         ],
+        'gameProcess' => [
+            'class' => 'frontend\components\GameProcess',
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'apple/game' => 'apple/index',
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
