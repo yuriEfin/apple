@@ -3,10 +3,12 @@
 
 namespace frontend\models\query;
 
+use common\models\BaseApple;
+
 /**
  * This is the ActiveQuery class for [[\frontend\models\Apple]].
  *
- * @see \frontend\models\BaseApple
+ * @see BaseApple
  */
 class AppleQuery extends \yii\db\ActiveQuery
 {
@@ -17,7 +19,7 @@ class AppleQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \frontend\models\BaseApple[]|array
+     * @return BaseApple[]|array
      */
     public function all($db = null)
     {
@@ -26,7 +28,7 @@ class AppleQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \frontend\models\BaseApple|array|null
+     * @return BaseApple|array|null
      */
     public function one($db = null)
     {

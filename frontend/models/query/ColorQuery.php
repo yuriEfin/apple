@@ -2,10 +2,12 @@
 
 namespace frontend\models\query;
 
+use common\models\BaseColor;
+
 /**
  * This is the ActiveQuery class for [[\frontend\models\Color]].
  *
- * @see \frontend\models\BaseColor
+ * @see BaseColor
  */
 class ColorQuery extends \yii\db\ActiveQuery
 {
@@ -16,7 +18,7 @@ class ColorQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \frontend\models\BaseColor[]|array
+     * @return BaseColor[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +27,7 @@ class ColorQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \frontend\models\BaseColor|array|null
+     * @return BaseColor|array|null
      */
     public function one($db = null)
     {

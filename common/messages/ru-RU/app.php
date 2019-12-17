@@ -14,4 +14,13 @@ return [
     'Percent Bite Off Size' => 'Процент откушенного',
     'Title' => 'Наименование',
     'Alias' => 'Аналог наименования на language [En]',
+    'Generate' => 'Сгенерировать',
+    'Apple Id' => 'Яблоко',
+    'Apples' => 'Яблоки',
+    'Apple' => 'Яблоко',
+    'Bite Off' => 'Откусить',
+    'Rotten Action' => 'Сгнить',
+    'Fail Action' => 'Упасть',
+    'Sign out' => 'Выход',
+    'Profile' => 'Мой профиль',
 ];

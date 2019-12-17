@@ -1,10 +1,10 @@
 <?php
 
-namespace frontend\models;
+namespace backend\models;
 
+use backend\models\query\ColorQuery;
 use common\models\BaseApple;
 use common\models\BaseColor;
-use Yii;
 
 /**
  * This is the model class for table "{{%color}}".
@@ -22,52 +22,10 @@ class Color extends BaseColor
 {
     /**
      * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return '{{%color}}';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['title', 'created_at', 'created_by'], 'required'],
-            [['title', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'title' => Yii::t('app', 'Object item id'),
-            'created_at' => Yii::t('app', 'Created at'),
-            'updated_at' => Yii::t('app', 'Updated at'),
-            'created_by' => Yii::t('app', 'Created By'),
-            'updated_by' => Yii::t('app', 'Created By'),
-        ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getApples()
-    {
-        return $this->hasMany(BaseApple::class, ['color_id' => 'id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return \frontend\models\query\ColorQuery the active query used by this AR class.
+     * @return ColorQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new \frontend\models\query\ColorQuery(get_called_class());
+        return new ColorQuery(get_called_class());
     }
 }

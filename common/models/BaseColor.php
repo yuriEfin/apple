@@ -83,13 +83,4 @@ class BaseColor extends \yii\db\ActiveRecord
     {
         return $this->hasMany(BaseApple::class, ['color_id' => 'id']);
     }
-
-    /**
-     * {@inheritdoc}
-     * @return \frontend\models\query\ColorQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new \frontend\models\query\ColorQuery(get_called_class());
-    }
 }

@@ -29,7 +29,7 @@ class BaseStatus extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%color}}';
+        return '{{%status}}';
     }
 
     /**
@@ -38,9 +38,9 @@ class BaseStatus extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required'],
-            [['title', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['title', 'alias'], 'string', 'max' => 255],
+            [['name'], 'required'],
+            [['name', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['name', 'alias'], 'string', 'max' => 255],
             [['is_default'], 'boolean'],
             [['is_default'], 'safe'],
         ];
@@ -53,7 +53,7 @@ class BaseStatus extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'title' => Yii::t('app', 'Title'),
+            'name' => Yii::t('app', 'Title'),
             'alias' => Yii::t('app', 'Alias'),
             'is_default' => Yii::t('app', 'Is Default'),
             'created_at' => Yii::t('app', 'Created at'),
@@ -86,14 +86,5 @@ class BaseStatus extends \yii\db\ActiveRecord
     public function getApples()
     {
         return $this->hasMany(BaseApple::class, ['color_id' => 'id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return \frontend\models\query\StatusQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new \frontend\models\query\StatusQuery(get_called_class());
     }
 }

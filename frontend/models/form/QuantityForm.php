@@ -11,19 +11,19 @@ use yii\base\Model;
  */
 class QuantityForm extends Model
 {
-    public $qantity;
+    public $quantity;
 
     public function rules()
     {
         return [
-            ['qantity', 'integer'],
+            ['quantity', 'integer'],
         ];
     }
 
-    public function getAttributeLabel($attribute)
+    public function attributeLabels()
     {
         return [
-            'qantity' => Yii::t('app', 'Введите количество'),
+            'quantity' => Yii::t('app', 'Введите количество'),
         ];
     }
 }

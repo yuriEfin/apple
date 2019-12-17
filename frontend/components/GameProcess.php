@@ -28,7 +28,10 @@ class GameProcess extends Component implements GameProcessInterface, RandomObjec
     const DEFAULT_QUANTITY_RANDOM_GEN = 5;
 
     /**
-     * @throws InvalidItemProperty
+     * @param ItemInterface $item
+     * @param array         $params
+     *
+     * @return bool|mixed
      */
     public function processBiteOffPiece(ItemInterface $item, $params = [])
     {
@@ -67,7 +70,10 @@ class GameProcess extends Component implements GameProcessInterface, RandomObjec
     }
 
     /**
-     * @throws InvalidItemProperty
+     * @param ItemInterface $item
+     * @param array         $params
+     *
+     * @return bool|mixed
      */
     public function processFailItem(ItemInterface $item, $params = [])
     {
@@ -75,7 +81,10 @@ class GameProcess extends Component implements GameProcessInterface, RandomObjec
     }
 
     /**
-     * @throws InvalidItemProperty
+     * @param ItemInterface $item
+     * @param array         $params
+     *
+     * @return bool|mixed
      */
     public function processRotten(ItemInterface $item, $params = [])
     {
@@ -108,6 +117,8 @@ class GameProcess extends Component implements GameProcessInterface, RandomObjec
                     'color_id' => $this->getRandomColor()['id'],
                     'size' => 100,
                     'bite_off_size' => 0,
+                    'created_by' => 0,
+                    'created_at' => time(),
                 ]
             );
             if ($model->save()) {

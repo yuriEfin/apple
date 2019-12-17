@@ -25,34 +25,14 @@ class BiteOffForm extends Model
         return [
             [['percent'], 'integer', 'max' => 100],
             [['apple_id'], 'integer'],
-            ['percent', 'validatePercent'],
         ];
     }
 
-    public function getAttributeLabel($attribute)
+    public function attributeLabels()
     {
         return [
             'percent' => \Yii::t('app', 'Percent Bite Off Size'),
+            'apple_id' => \Yii::t('app', 'Apple Id'),
         ];
-    }
-
-    public function validateAppleId($attr)
-    {
-        if (!$model = Apple::findOne($this->apple_id)) {
-            $this->addError($attr, \Yii::t('validation', 'Do you want to bite off an unknown apple'));
-        }
-    }
-
-    /**
-     * @param $attr
-     * @param $val
-     *
-     * @return bool
-     */
-    public function validatePercent($attr, $val)
-    {
-        if ($this->$attr > 100) {
-            $this->addError($attr, \Yii::t('validation', 'You cannot bite off the apple itself'));
-        }
     }
 }

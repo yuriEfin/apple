@@ -22,8 +22,8 @@ class m191216_185005_createTable_status_issue_1 extends Migration
                 'is_default' => $this->string(100)->comment('Is Default'),
                 'created_at' => $this->integer()->notNull()->comment('Created at'),
                 'updated_at' => $this->integer()->defaultValue(0)->null()->comment('Updated at'),
-                'created_by' => $this->integer()->notNull()->comment('Created By'),
-                'updated_by' => $this->integer()->defaultValue(0)->null()->comment('Updated By'),
+                'created_by' => $this->integer()->defaultValue(0)->null()->comment('Created By'),
+                'updated_by' => $this->integer()->defaultValue(0)->null()->comment('Created By'),
             ]
         );
         $this->addForeignKey('x_fk_status', $tablePrefix . 'apple', 'status_id', $tablePrefix . 'status', 'id');

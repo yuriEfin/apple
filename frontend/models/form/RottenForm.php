@@ -21,4 +21,11 @@ class RottenForm extends Model
             [['apple_id'], 'integer'],
         ];
     }
+
+    public function attributeLabels()
+    {
+        return [
+            'apple_id' => \Yii::t('app', 'Apple Id'),
+        ];
+    }
 }

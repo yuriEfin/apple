@@ -24,7 +24,7 @@ class m191216_184854_createTable_apple_issue_1 extends Migration
                 'deleted' => $this->boolean()->comment('Deleted'),
                 'created_at' => $this->integer()->notNull()->comment('Created at'),
                 'updated_at' => $this->integer()->defaultValue(0)->null()->comment('Updated at'),
-                'created_by' => $this->integer()->defaultValue(0)->notNull()->comment('Created By'),
+                'created_by' => $this->integer()->defaultValue(0)->null()->comment('Created By'),
                 'updated_by' => $this->integer()->defaultValue(0)->null()->comment('Created By'),
             ]
         );

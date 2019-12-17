@@ -2,21 +2,18 @@
 
 namespace frontend\models\query;
 
+use common\models\BaseStatus;
+
 /**
  * This is the ActiveQuery class for [[\frontend\models\Status]].
  *
- * @see \frontend\models\BaseStatus
+ * @see BaseStatus
  */
 class StatusQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
-
     /**
      * {@inheritdoc}
-     * @return \frontend\models\BaseStatus[]|array
+     * @return BaseStatus[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +22,7 @@ class StatusQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \frontend\models\BaseStatus|array|null
+     * @return BaseStatus|array|null
      */
     public function one($db = null)
     {

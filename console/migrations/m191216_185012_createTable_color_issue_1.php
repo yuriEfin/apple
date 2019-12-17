@@ -21,8 +21,8 @@ class m191216_185012_createTable_color_issue_1 extends Migration
                 'alias' => $this->string()->notNull()->comment('Alias'),
                 'created_at' => $this->integer()->notNull()->comment('Created at'),
                 'updated_at' => $this->integer()->defaultValue(0)->null()->comment('Updated at'),
-                'created_by' => $this->integer()->notNull()->comment('Created By'),
-                'updated_by' => $this->integer()->null()->defaultValue(0)->comment('Created By'),
+                'created_by' => $this->integer()->defaultValue(0)->null()->comment('Created By'),
+                'updated_by' => $this->integer()->defaultValue(0)->null()->comment('Created By'),
             ]
         );
         $this->addForeignKey('x_fk_color', $tablePrefix . 'apple', 'color_id', $tablePrefix . 'color', 'id');
