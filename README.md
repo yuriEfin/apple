@@ -7,7 +7,7 @@
 >   password: qwqwqw
 
 ```
-git clone https://github.com/yuriEfin/rtg.git
+git clone https://github.com/yuriEfin/apple.git
 ```
 ```
 php yii migrate 
