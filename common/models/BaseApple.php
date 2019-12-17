@@ -4,6 +4,7 @@
 namespace common\models;
 
 use backend\models\Status;
+use frontend\models\Color;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -57,7 +58,6 @@ class BaseApple extends \yii\db\ActiveRecord
                 ],
                 'integer',
             ],
-            [['created_at'], 'required'],
             [
                 ['color_id'],
                 'exist',
@@ -72,11 +72,13 @@ class BaseApple extends \yii\db\ActiveRecord
                 'targetClass' => BaseStatus::class,
                 'targetAttribute' => ['status_id' => 'id'],
             ],
-            ['status_id', 'default', 'value' => Status::findOne(['is_default' => 1])],
+            ['status_id', 'default', 'value' => $this->getDefaultStatus()],
+            ['color_id', 'default', 'value' => $this->getDefaultColor()],
             ['size', 'default', 'value' => 100],
             ['bite_off_size', 'default', 'value' => 0],
-            ['deleted', 'bool'],
+            ['deleted', 'boolean'],
             ['deleted', 'default', 'value' => false],
+            ['created_by', 'default', 'value' => 0],
         ];
     }
 
@@ -106,7 +108,7 @@ class BaseApple extends \yii\db\ActiveRecord
                 'class' => TimestampBehavior::class,
                 'createdAtAttribute' => 'created_at',
                 'updatedAtAttribute' => 'updated_at',
-                'value' => new Expression('NOW()'),
+                'value' => time(),
             ],
             [
                 'class' => BlameableBehavior::class,
@@ -114,6 +116,16 @@ class BaseApple extends \yii\db\ActiveRecord
                 'updatedByAttribute' => 'updated_by',
             ],
         ];
+    }
+
+    public function getDefaultStatus()
+    {
+        return Status::find()->one()->id;
+    }
+
+    public function getDefaultColor()
+    {
+        return Color::find()->one()->id;
     }
 
     /**

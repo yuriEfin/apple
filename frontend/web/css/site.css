@@ -118,3 +118,10 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+/* apple circle */
+.apple {
+    width: 150px;
+    height: 150px;
+    border-radius: 90px;
+}

@@ -34,6 +34,9 @@ return [
                 ],
             ],
         ],
+        'gameProcess' => [
+            'class' => 'frontend\components\GameProcess',
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],

@@ -19,14 +19,6 @@ class ShowApple extends Widget
      */
     public $view = '_w_show_apple';
 
-    public function init()
-    {
-        parent::init();
-        if (!$this->items) {
-            $this->items =
-        }
-    }
-
     public function run()
     {
         return $this->render($this->view, ['items' => $this->items]);

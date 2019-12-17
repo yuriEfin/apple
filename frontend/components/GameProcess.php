@@ -15,6 +15,7 @@ use frontend\models\Apple;
 use frontend\models\Color;
 use yii\base\Component;
 use yii\caching\DbDependency;
+use yii\db\Exception;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -102,34 +103,42 @@ class GameProcess extends Component implements GameProcessInterface, RandomObjec
         $arrayApple = [];
         $quantity = (int) ($params['quantity'] ?? self::DEFAULT_QUANTITY_RANDOM_GEN);
         for ($quantity; $quantity > 0; $quantity--) {
-            $arrayApple[] = new Apple(
+            $model = new Apple(
                 [
                     'color_id' => $this->getRandomColor()['id'],
                     'size' => 100,
                     'bite_off_size' => 0,
                 ]
             );
+            if ($model->save()) {
+                $arrayApple[] = $model;
+            } else {
+                var_dump($model->errors, ' errors');
+            }
         }
 
         return $arrayApple;
     }
 
     /**
-     * @return array
+     * @return integer
      */
-    private function getRandomColor(): array
+    private function getRandomColor(): int
     {
         $key = md5(__METHOD__);
         if (!$colors = \Yii::$app->cache->get($key)) {
-            $colors = ArrayHelper::map(Color::find()->all(), 'id', 'name');
+            $colors = ArrayHelper::map(Color::find()->all(), 'id', 'id');
             \Yii::$app->cache->set(
                 $key,
                 $colors,
                 300, // @todo: move all cache key to Db stored
                 new DbDependency(
-                    ['sql' => 'SELECT CONCAT(MAX(created_at),MAX(updated_at)) FROM colors']
+                    ['sql' => 'SELECT CONCAT(MAX(created_at),MAX(updated_at)) FROM ' . Color::tableName()]
                 )
             );
+        }
+        if (!$colors) {
+            return 0;
         }
         $arrayRand = array_rand($colors, 1);
 

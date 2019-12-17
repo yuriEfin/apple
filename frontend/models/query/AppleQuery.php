@@ -1,5 +1,6 @@
 <?php
 
+
 namespace frontend\models\query;
 
 /**
@@ -9,9 +10,9 @@ namespace frontend\models\query;
  */
 class AppleQuery extends \yii\db\ActiveQuery
 {
-    public function active()
+    public function noDeleted()
     {
-        return $this->andWhere('[[status]]=1');
+        return $this->andWhere('deleted=0');
     }
 
     /**

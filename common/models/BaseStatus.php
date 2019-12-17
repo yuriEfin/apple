@@ -12,12 +12,13 @@ use yii\db\Expression;
  * This is the model class for table "{{%color}}".
  *
  * @property int         $id
- * @property int         $title      Title
- * @property int         $alias      Alias
- * @property int         $created_at Created at
- * @property int|null    $updated_at Updated at
- * @property int         $created_by Created By
- * @property int|null    $updated_by Created By
+ * @property int         $title           Title
+ * @property int         $alias           Alias
+ * @property int         $is_default      Is default
+ * @property int         $created_at      Created at
+ * @property int|null    $updated_at      Updated at
+ * @property int         $created_by      Created By
+ * @property int|null    $updated_by      Created By
  *
  * @property BaseApple[] $apples
  */
@@ -37,9 +38,11 @@ class BaseStatus extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'created_at', 'created_by'], 'required'],
+            [['title'], 'required'],
             [['title', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['title', 'alias'], 'string', 'max' => 255],
+            [['is_default'], 'boolean'],
+            [['is_default'], 'safe'],
         ];
     }
 
@@ -52,6 +55,7 @@ class BaseStatus extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'title' => Yii::t('app', 'Title'),
             'alias' => Yii::t('app', 'Alias'),
+            'is_default' => Yii::t('app', 'Is Default'),
             'created_at' => Yii::t('app', 'Created at'),
             'updated_at' => Yii::t('app', 'Updated at'),
             'created_by' => Yii::t('app', 'Created By'),

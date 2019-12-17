@@ -15,6 +15,6 @@ class AppleController extends Controller
     {
         $modelForm = new QuantityForm();
 
-        return $this->render('');
+        return $this->render('index');
     }
 }

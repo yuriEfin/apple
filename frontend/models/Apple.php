@@ -30,11 +30,20 @@ use yii\helpers\ArrayHelper;
  */
 class Apple extends BaseApple implements ItemInterface
 {
-    const DEFAULT_STATUS = 1;
     const STATUS_ALIAS_ROTEN = 'rotten';
     const STATUS_ALIAS_FAIL = 'fail_to_ground';
     const STATUS_ALIAS_HANDING = 'handing_tree';
     const STATUS_ALIAS_DELETED = 'deleted';
+
+    public function rules()
+    {
+        return parent::rules();
+    }
+
+    public function  beforeValidate()
+    {
+        $this->created_by = Yii::$app->user ? Yii::$app->user->id : 0;
+    }
 
     /**
      * @return bool|false|int
@@ -88,7 +97,7 @@ class Apple extends BaseApple implements ItemInterface
     /**
      * @param string $alias
      *
-     * @return mixed
+     * @return int
      */
     public static function getStatusIdByAlias($alias)
     {

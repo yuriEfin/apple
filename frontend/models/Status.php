@@ -12,12 +12,13 @@ use yii\helpers\ArrayHelper;
  * This is the model class for table "{{%color}}".
  *
  * @property int         $id
- * @property int         $title      Title
- * @property int         $alias      Alias
- * @property int         $created_at Created at
- * @property int|null    $updated_at Updated at
- * @property int         $created_by Created By
- * @property int|null    $updated_by Created By
+ * @property int         $title           Title
+ * @property int         $alias           Alias
+ * @property int         $is_default      Is default
+ * @property int         $created_at      Created at
+ * @property int|null    $updated_at      Updated at
+ * @property int         $created_by      Created By
+ * @property int|null    $updated_by      Created By
  *
  * @property BaseApple[] $apples
  */

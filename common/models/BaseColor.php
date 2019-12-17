@@ -37,7 +37,7 @@ class BaseColor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'created_at', 'created_by'], 'required'],
+            [['title'], 'required'],
             [['title', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['title', 'alias'], 'string', 'max' => 255],
         ];
